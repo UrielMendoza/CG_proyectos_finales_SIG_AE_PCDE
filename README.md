@@ -1,10 +1,9 @@
 
 ```html
 <div style="display: flex; justify-content: space-between;">
-    <img src="./assets/img/CentroGeo_Logo-H_25.png" alt="CentroGeo" style="width: 50%;">
-    <img src="/assets/img/CONAHCYT.png" alt="Conahcyt" style="width: 50%;">
+  <img src="./assets/img/CentroGeo_Logo-H_25.png" alt="CentroGeo" style="width: 50%;">
+  <img src="./assets/img/CONAHCYT.png" alt="Conahcyt" style="width: 50%;">
 </div>
-```
 
 # Proyectos de Investigación en Sistemas y Análisis de Datos Espaciales
 
