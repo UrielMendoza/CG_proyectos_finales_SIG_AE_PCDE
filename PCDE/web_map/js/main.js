@@ -47,9 +47,9 @@ window.addEventListener('DOMContentLoaded', function() {
         //mapaSimbologiaImg_1.style.opacity = '1';
         //mapaSimbologiaImg_2.style.opacity = '0.85';
 
-        // Muestra el botón de toggleMenuButton
-        toggleMenuButton.classList.toggle("hide-button");
+        // Esconde el boton de toggleMenuButton
         toggleMenuButton.style.display = "block";
+        toggleMenuButtonImg.style.display = "block";
 
         // Menu responsivo
         toggleMenuButton.addEventListener("click", function () {
@@ -64,8 +64,11 @@ window.addEventListener('DOMContentLoaded', function() {
             toggleMenuButtonImg.style.zIndex = '1000';
 
             // Muestra el boton de cierre
-            toggleMenuButton2.classList.toggle("hide-button");
-            toggleMenuButton2.style.display = "block";
+            //toggleMenuButton2.classList.toggle("hide-button");
+            //toggleMenuButton2.style.display = "block";
+            // Esconde el boton de toggleMenuButton2
+            toggleMenuButton2.style.display = "none";
+            toggleMenuButtonImg2.style.display = "none";
 
             // Esconde el boton de toggleMenuButton
             toggleMenuButton.style.display = "none";
@@ -88,12 +91,12 @@ window.addEventListener('DOMContentLoaded', function() {
         mapaSimbologiaImg.src = './assets/icons/simbologia.png';
 
         var mapContainer = document.getElementById('map');
-        mapContainer.style.height = (window.innerHeight - 20) + 'px'; // Ajusta el tamaño del mapa
+        mapContainer.style.height = (window.innerHeight ) + 'px'; // Ajusta el tamaño del mapa
 
         // Ajusta el tamaño del mapa al cambiar el tamaño de la ventana
         window.addEventListener('resize', function() {
             var mapContainer = document.getElementById('map');
-            mapContainer.style.height = (window.innerHeight - 20) + 'px'; // Ajusta el tamaño del mapa
+            mapContainer.style.height = (window.innerHeight ) + 'px'; // Ajusta el tamaño del mapa
         });
 
         // Inicializar el mapa
@@ -101,12 +104,12 @@ window.addEventListener('DOMContentLoaded', function() {
         // Cambia el nivel de zoom en la version movil
         if (window.innerWidth < 768) {
             var map = L.map('map', {
-            }).setView([19.1, -99.6], 9);
+            }).setView([19.304494614167837, -98.82020547622243], 10);
         }
          // version de escritorio
         if (window.innerWidth > 768) {
             var map = L.map('map', {
-            }).setView([19.3, -99], 9);
+            }).setView([19.304494614167837, -98.82020547622243], 10);
         }       
 
         // Tiles hasta detras de las capas
@@ -444,9 +447,13 @@ window.addEventListener('DOMContentLoaded', function() {
 
         if (window.innerWidth > 768) {
             // Si es version de escritorio, elimina la imagen de toggleMenuButton
+            toggleMenuButton.style.display = "none";
+            // Si es version de escritorio, elimina la imagen de toggleMenuButton
             toggleMenuButtonImg.style.display = "none";
             // Elimina el boton de cierre
             toggleMenuButton2.style.display = "none";
+            // Elimina el boton de toggleMenuButtonImg2
+            toggleMenuButtonImg2.style.display = "none";
             // Muestra el menu
             menuContainer.style.display = "block";
             // Muestra la simbologia
