@@ -42,8 +42,8 @@ window.addEventListener('DOMContentLoaded', function() {
         inicio.style.display = 'none';
         mapaContainer.style.opacity = '1';
         mapaTitulo.style.opacity = '0.75';
-        //mapaSimbologia.style.background = 'var(--white)';
-        //mapaSimbologiaImg.style.opacity = '1';
+        mapaSimbologia.style.background = 'var(--white)';
+        mapaSimbologiaImg.style.opacity = '1';
         //mapaSimbologiaImg_1.style.opacity = '1';
         //mapaSimbologiaImg_2.style.opacity = '0.85';
 
@@ -88,7 +88,7 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         // Activa la simbologia de la capa 1
-        //mapaSimbologiaImg.src = './assets/icons/simbologia.png';
+        mapaSimbologiaImg.src = './assets/icons/simbologia.png';
 
         var mapContainer = document.getElementById('map');
         mapContainer.style.height = (window.innerHeight ) + 'px'; // Ajusta el tamaño del mapa
@@ -166,35 +166,11 @@ window.addEventListener('DOMContentLoaded', function() {
 
                     // Controlador de simbologia al activar la capa
                     if (checkboxId == 'capa1') {
-/*                         mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia.png'; */
+                        mapaSimbologia.style.opacity = '1';
+                        mapaSimbologiaImg.src = './assets/icons/simbologia.png';
                     } else if (checkboxId == 'capa2') {
                         mapaSimbologia.style.opacity = '1';
                         mapaSimbologiaImg.src = './assets/icons/simbologia.png';
-                    } else if (checkboxId == 'capa3') {
-                        mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia_cambio.png';
-                    } else if (checkboxId == 'capa4') {
-                        mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia_vegdominante.png';
-                    } else if (checkboxId == 'capa10') {
-                        mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia_ndvi.png';
-                    } else if (checkboxId == 'capa11') {
-                        mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia_ndvi.png';
-                    } else if (checkboxId == 'capa12') {
-                        mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia_dndvi.png';
-                    } else if (checkboxId == 'capa13') {
-                        mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia_sd.png';
-                    } else if (checkboxId == 'capa14') {
-                        mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia_sd.png';
-                    } else if (checkboxId == 'capa15') {
-                        mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia_sd.png';
                     } else {
                         mapaSimbologiaImg.src = './assets/icons/sin_simbologia.png ';
                         // Esconde la simbologia
@@ -210,10 +186,34 @@ window.addEventListener('DOMContentLoaded', function() {
               
 
         // Capas WMS
-        const wms = 'http://132.247.103.145:8080/geoserver/probosque/wms'
+        const wms = 'http://132.247.103.145:8080/geoserver/centrogeo/wms'
+
+/*         function getColor(d) {
+            return d > 100000000 ? '#800026' : 
+            d > 50000000 ? '#BD0026' : 
+            d > 20000000 ? '#E31A1C' : 
+            d > 10000000 ? '#FC4E2A' : 
+            d > 5000000 ? '#FD8D3C' : 
+            d > 2000000 ? '#FEB24C' : 
+            d > 1000000 ? '#FED976' : 
+            '#FFEDA0'; 
+            }
+        function style(feature) { 
+            return { 
+            fillColor: getColor(
+            feature.properties.POB1), 
+            weight: 2, 
+            opacity: 1, 
+            color: 'white', 
+            dashArray: '3', 
+            fillOpacity: 0.7 
+            }; 
+        }
+
+        L.geoJson(alcaldias_cdmx, { style: style }).addTo(map); */
 
         var edomex_2022 = L.tileLayer.wms(wms, {
-            layers: 'probosque:edomex_2022',
+            layers: 'centrogeo:colonias_cdmx',
             transparent: true,
             format: 'image/png',
             zindex: 5
@@ -241,7 +241,7 @@ window.addEventListener('DOMContentLoaded', function() {
             transparent: true,
             format: 'image/png',
             zindex: 5
-        });
+        }).addTo(map);
 
         var edomex_2015_2022 = L.tileLayer.wms(wms, {
             layers: 'probosque:edomex_2015_2022',
