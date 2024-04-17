@@ -42,8 +42,8 @@ window.addEventListener('DOMContentLoaded', function() {
         inicio.style.display = 'none';
         mapaContainer.style.opacity = '1';
         mapaTitulo.style.opacity = '0.75';
-        mapaSimbologia.style.background = 'var(--white)';
-        mapaSimbologiaImg.style.opacity = '1';
+        //mapaSimbologia.style.background = 'var(--white)';
+        //mapaSimbologiaImg.style.opacity = '1';
         //mapaSimbologiaImg_1.style.opacity = '1';
         //mapaSimbologiaImg_2.style.opacity = '0.85';
 
@@ -88,7 +88,7 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         // Activa la simbologia de la capa 1
-        mapaSimbologiaImg.src = './assets/icons/simbologia.png';
+        //mapaSimbologiaImg.src = './assets/icons/simbologia.png';
 
         var mapContainer = document.getElementById('map');
         mapContainer.style.height = (window.innerHeight ) + 'px'; // Ajusta el tamaño del mapa
@@ -166,8 +166,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
                     // Controlador de simbologia al activar la capa
                     if (checkboxId == 'capa1') {
-                        mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia.png';
+/*                         mapaSimbologia.style.opacity = '1';
+                        mapaSimbologiaImg.src = './assets/icons/simbologia.png'; */
                     } else if (checkboxId == 'capa2') {
                         mapaSimbologia.style.opacity = '1';
                         mapaSimbologiaImg.src = './assets/icons/simbologia.png';
