@@ -88,7 +88,7 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         // Activa la simbologia de la capa 1
-        //mapaSimbologiaImg.src = './assets/icons/simbologia_2.png';
+        mapaSimbologiaImg.src = './assets/icons/simbo_incall_gi.png';
 
         var mapContainer = document.getElementById('map');
         mapContainer.style.height = (window.innerHeight ) + 'px'; // Ajusta el tamaño del mapa
