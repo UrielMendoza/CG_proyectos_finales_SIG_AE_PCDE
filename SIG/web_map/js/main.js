@@ -217,7 +217,7 @@ window.addEventListener('DOMContentLoaded', function() {
             transparent: true,
             format: 'image/png',
             zindex: 5
-        }).addTo(map);
+        });
 
         var deficit = L.tileLayer.wms(wms, {
             layers: 'centrogeo:deficit',
@@ -266,7 +266,7 @@ window.addEventListener('DOMContentLoaded', function() {
             transparent: true,
             format: 'image/png',
             zindex: 5
-        }); 
+        }).addTo(map); 
 
         toggleLayer('capa1', coloniasCDMXLayer);
         toggleLayer('capa2', deficit);
