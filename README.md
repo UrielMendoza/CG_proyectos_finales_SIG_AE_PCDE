@@ -25,6 +25,9 @@ Este repositorio contiene los procesos y datos desarrollados para los proyectos 
   - Interpolación de datos de precipitación.
   - Análisis de estadística local basado en los resultados finales
 
+  **Link al geoportal**
+  Geoportal [Link](http://132.247.103.145/tmp/SIG/CG_proyectos_finales_SIG_AE_PCDE/SIG/web_map/) 
+
 ### Análisis Espacial
 
 - **Objetivo:** Realizar tres procesos de análisis espacial vistos en la materia.
