@@ -29,7 +29,61 @@
 <body>
 
 <!-- Codigo PHP-->
+    <?php
 
+    error_reporting (E_ALL  ^  E_NOTICE  ^  E_DEPRECATED);
+    // 1.- IDENTIFICACION nombre de la base, del usuario, clave y servidor
+
+    $db_host="localhost";
+    $db_name="id21877429_pgi_01";
+    $db_login="id21877429_alumendoza";
+    $db_pswd="Rohanio#19";
+
+    $conn = mysqli_connect($db_host,$db_login,$db_pswd,$db_name);
+        if(!$conn)
+        {
+            echo "<h3>No se ha podido conectar PHP - MySQL, verifique sus datos.</h3><hr><br>";
+        }
+        else
+        {
+            //echo "<h3> </h3><hr><br>";
+        }
+
+    // 2.- CONEXION A LA BASE DE DATOS
+    mysqli_select_db($conn, $db_name) or die(mysql_error());
+
+    $data1 = "";
+
+    //--------------------------------------------PARQUES-------------------------------------------------------------
+
+    $sql = "SELECT * FROM agua";  
+    $resultado = mysqli_query($conn, $sql);
+    //echo $sql.'<br>';
+
+    if($resultado->num_rows>0){
+    $num_filas = $resultado->num_rows;
+    //echo "Agua ".$num_filas."<br>";
+
+    $data1 = $data1."\n var agua = { 'type':'FeatureCollection', \n 'features': [ \n";
+    $i=1;
+    while ($fila=$resultado->fetch_assoc())
+    {   if($i < $num_filas){
+        $data1 = $data1."{'type':'Feature',\n 'properties':{'id':'".$fila['id']."', 'tipo':'".$fila['tipo']."', 'duracion':'".$fila['duracion']."', 'observacion':'".$fila['observacion']."','time':'".$fila['time']."'}, \n'geometry':{ 'type':'Point', 'coordinates':[".$fila['longitud'].",".$fila['latitud']."] }},\n";
+        $i++;
+        }
+        else{
+        $data1 = $data1."{'type':'Feature',\n 'properties':{'id':'".$fila['id']."', 'tipo':'".$fila['tipo']."', 'duracion':'".$fila['duracion']."', 'observacion':'".$fila['observacion']."','time':'".$fila['time']."'}, \n'geometry':{ 'type':'Point', 'coordinates':[".$fila['longitud'].",".$fila['latitud']."] }},\n";  
+        }
+
+    }
+        $data1 = $data1.']};';
+
+    }
+
+    $file = fopen("agua.js", "w");
+    fwrite($file, $data1);
+    fclose($file);
+    ?>
 
     <!-- Pagina Inicio -->
     <section class="inicio" id="inicio">
@@ -125,56 +179,56 @@
                     <!-- Lista de capas -->
                     <div class="capas-lista-elemento">
                         <input type="checkbox" id="capa1" name="capa1" value="capa1" checked>
-                        <label for="capa1">Problematicas de agua.<br>CDMX.</label>
+                        <label for="capa1">Colonias con problematicas de agua.<br>CDMX.<br>WebScraping</label>
                         <span>
                             <img src="" alt="">
                         </span>
                     </div>
                     <div class="capas-lista-elemento">
                         <input type="checkbox" id="capa2" name="capa2" value="capa2">
-                        <label for="capa2">Deficit de agua.<br>CDMX.</label>
+                        <label for="capa2">Reporte de fugas.<br>Nacional.<br>AppInventor</label>
                         <span>
                             <img src="" alt="">
                         </span>
                     </div>
                     <div class="capas-lista-elemento">
                         <input type="checkbox" id="capa3" name="capa3" value="capa3">
-                        <label for="capa3">Precipitación.<br>CDMX.</label>
+
                         <span>
                             <img src="" alt="">
                         </span>
                     </div>
                     <div class="capas-lista-elemento">
                         <input type="checkbox" id="capa4" name="capa4" value="capa4">
-                        <label for="capa4">Acceso a infraestructura de agua.<br>CDMX.</label>
+
                         <span>
                             <img src="" alt="">
                         </span>
                     </div>
                     <div class="capas-lista-elemento">
-                        <input type="checkbox" id="capa5" name="capa5" value="capa5">
-                        <label for="capa5">RCHP.<br>CDMX.</label>
+                        <input type="checkbox" id="capa10" name="capa10" value="capa10">
+
                         <span>
                             <img src="" alt="">
                         </span>
                     </div>
                     <div class="capas-lista-elemento">
-                        <input type="checkbox" id="capa6" name="capa6" value="capa6">
-                        <label for="capa6">INCALL.<br>CDMX.</label>
+                        <input type="checkbox" id="capa11" name="capa11" value="capa11">
+
                         <span>
                             <img src="" alt="">
                         </span>
                     </div>
                     <div class="capas-lista-elemento">
-                        <input type="checkbox" id="capa7" name="capa7" value="capa7">
-                        <label for="capa7">INCALL Gi* 2300.<br>CDMX.</label>
+                        <input type="checkbox" id="capa12" name="capa12" value="capa12">
+
                         <span>
                             <img src="" alt="">
                         </span>
                     </div>
                     <div class="capas-lista-elemento">
-                        <input type="checkbox" id="capa8" name="capa8" value="capa8">
-                        <label for="capa8">INCALL Gi* 500.<br>CDMX.</label>
+                        <input type="checkbox" id="capa13" name="capa13" value="capa13">
+
                         <span>
                             <img src="" alt="">
                         </span>
@@ -264,7 +318,7 @@
 
 
         <!-- Mapa Tiulo -->
-        <div id="mapa-titulo">Proyecto final SIG.</div>
+        <div id="mapa-titulo">Proyecto final.</div>
         <!-- Simbologia -->
         <div id="mapa-simbologia">
             <!-- <img id="mapa-simbologia-img_1" src="./assets/icons/simbologia.png" alt="igg_simbologia"> -->
@@ -286,8 +340,9 @@
     </section>
 
     <!-- Data -->
-    <scrip src="./assets/data/alcaldias_cdmx.js"></scrip>
-    <scrip src="./assets/data/colonias_cdmx.js"></scrip>
+    <script src="./colonias_cdmx.js" type="text/javascript"></script>
+    <script src="./assets/data/colonias_cdmx.js"></script>
+    <script src="./agua.js" type="text/javascript"></script>
     
     <!-- Script -->
     <script src="./js/main.js"></script>

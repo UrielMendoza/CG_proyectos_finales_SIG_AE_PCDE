@@ -88,7 +88,7 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         // Activa la simbologia de la capa 1
-        mapaSimbologiaImg.src = './assets/icons/simbologia.png';
+        //mapaSimbologiaImg.src = './assets/icons/simbologia_2.png';
 
         var mapContainer = document.getElementById('map');
         mapContainer.style.height = (window.innerHeight ) + 'px'; // Ajusta el tamaño del mapa
@@ -109,7 +109,7 @@ window.addEventListener('DOMContentLoaded', function() {
          // version de escritorio
         if (window.innerWidth > 768) {
             var map = L.map('map', {
-            }).setView([19.304494614167837, -98.82020547622243], 10);
+            }).setView([19.35, -98.95], 11);
         }       
 
         // Tiles hasta detras de las capas
@@ -158,20 +158,41 @@ window.addEventListener('DOMContentLoaded', function() {
                     wmsLayer.addTo(map);
                     /* Pone la capa al frente de las demas */
                     wmsLayer.bringToFront();
+                    // Muestra la simbologia
+                    mapaSimbologia.style.opacity = '1';
                     mapaSimbologiaImg.style.opacity = '1';
 
                     // Pone la capa de sombras al frente de las demas
-                    sombra_igecem2.bringToFront();
-                    entidades.bringToFront();
+                    //sombra_igecem2.bringToFront();
+                    //entidades.bringToFront();
 
                     // Controlador de simbologia al activar la capa
                     if (checkboxId == 'capa1') {
                         mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia.png';
+                        mapaSimbologiaImg.src = './assets/icons/simbo_colonias.png';
                     } else if (checkboxId == 'capa2') {
                         mapaSimbologia.style.opacity = '1';
-                        mapaSimbologiaImg.src = './assets/icons/simbologia.png';
-                    } else {
+                        mapaSimbologiaImg.src = './assets/icons/simbo_deficit.png';
+                    } else if (checkboxId == 'capa3') {
+                        mapaSimbologia.style.opacity = '1';
+                        mapaSimbologiaImg.src = './assets/icons/simbo_precipitacion.png';
+                    } else if (checkboxId == 'capa4') {
+                        mapaSimbologia.style.opacity = '1';
+                        mapaSimbologiaImg.src = './assets/icons/simbo_ACP.png';
+                    } else if (checkboxId == 'capa5') {
+                        mapaSimbologia.style.opacity = '1';
+                        mapaSimbologiaImg.src = './assets/icons/simbo_rchp.png';
+                    } else if (checkboxId == 'capa6') {
+                        mapaSimbologia.style.opacity = '1';
+                        mapaSimbologiaImg.src = './assets/icons/simbo_incall.png';
+                    } else if (checkboxId == 'capa7') {
+                        mapaSimbologia.style.opacity = '1';
+                        mapaSimbologiaImg.src = './assets/icons/simbo_incall_gi.png';
+                    } else if (checkboxId == 'capa8') {
+                        mapaSimbologia.style.opacity = '1';
+                        mapaSimbologiaImg.src = './assets/icons/simbo_incall_gi.png';
+                    }                   
+                    else {
                         mapaSimbologiaImg.src = './assets/icons/sin_simbologia.png ';
                         // Esconde la simbologia
                         mapaSimbologia.style.opacity = '0';
@@ -179,190 +200,83 @@ window.addEventListener('DOMContentLoaded', function() {
                 } else {
                     map.removeLayer(wmsLayer);
                     mapaSimbologia.style.opacity = '0';
-                    //mapaSimbologiaImg.style.opacity = '0';
+                    mapaSimbologiaImg.style.opacity = '0';
                 }
             });
         }
+
+
+
               
 
         // Capas WMS
         const wms = 'http://132.247.103.145:8080/geoserver/centrogeo/wms'
 
-/*         function getColor(d) {
-            return d > 100000000 ? '#800026' : 
-            d > 50000000 ? '#BD0026' : 
-            d > 20000000 ? '#E31A1C' : 
-            d > 10000000 ? '#FC4E2A' : 
-            d > 5000000 ? '#FD8D3C' : 
-            d > 2000000 ? '#FEB24C' : 
-            d > 1000000 ? '#FED976' : 
-            '#FFEDA0'; 
-            }
-        function style(feature) { 
-            return { 
-            fillColor: getColor(
-            feature.properties.POB1), 
-            weight: 2, 
-            opacity: 1, 
-            color: 'white', 
-            dashArray: '3', 
-            fillOpacity: 0.7 
-            }; 
-        }
-
-        L.geoJson(alcaldias_cdmx, { style: style }).addTo(map); */
-
-        var edomex_2022 = L.tileLayer.wms(wms, {
+        var coloniasCDMXLayer = L.tileLayer.wms(wms, {
             layers: 'centrogeo:colonias_cdmx',
             transparent: true,
             format: 'image/png',
             zindex: 5
-        });
+        }).addTo(map);
 
-        const select = document.getElementById('cobertura');
-
-        select.addEventListener('change', function () {
-            const selectedValue = this.value;
-            const cqlFilter = "clase_2022 = " + selectedValue; // Reemplaza "atributo_de_la_capa" con el nombre del atributo en tu capa WMS
-            
-            // Si el valor es "todos", pone todas las categorías
-            if (selectedValue == 'todos') {
-            // Actualizar el parámetro CQL_FILTER de la capa WMS
-            edomex_2022.setParams({ CQL_FILTER: null });
-            }
-            else {
-            // Actualizar el parámetro CQL_FILTER de la capa WMS
-            edomex_2022.setParams({ CQL_FILTER: cqlFilter });
-            }
-        });
-
-        var edomex_2015 = L.tileLayer.wms(wms, {
-            layers: 'probosque:edomex_2015',
+        var deficit = L.tileLayer.wms(wms, {
+            layers: 'centrogeo:deficit',
             transparent: true,
             format: 'image/png',
             zindex: 5
-        }).addTo(map);
+        });
 
-        var edomex_2015_2022 = L.tileLayer.wms(wms, {
-            layers: 'probosque:edomex_2015_2022',
+        var precipitacion = L.tileLayer.wms(wms, {
+            layers: 'centrogeo:precipitacion',
             transparent: true,
             format: 'image/png',
-            zindex: 5,
-            opacity: 0.75
-        });
+            zindex: 5
+        });   
 
-        var edomex_veg_dominante = L.tileLayer.wms(wms, {
-            layers: 'probosque:edomex_veg_dominante',
+        var ACP = L.tileLayer.wms(wms, {
+            layers: 'centrogeo:ACP',
             transparent: true,
             format: 'image/png',
-            zindex: 5,
-            opacity: 0.5
-        });
+            zindex: 5
+        });   
 
-        //const select_2015 = document.getElementById('cobertura_2015');
-
-        //select_2015.addEventListener('change', function () {
-        //    const selectedValue = this.value;
-        //    const cqlFilter = "clase_2015 = " + selectedValue; // Reemplaza "atributo_de_la_capa" con el nombre del atributo en tu capa WMS
-        
-            // Actualizar el parámetro CQL_FILTER de la capa WMS
-        //    edomex_2015.setParams({ CQL_FILTER: cqlFilter });
-        //});
-
-        var sombra_igecem2 = L.tileLayer.wms(wms, {
-            layers: 'probosque:sombra_igecem2',
+        var rchp = L.tileLayer.wms(wms, {
+            layers: 'centrogeo:rchp',
             transparent: true,
             format: 'image/png',
-            opacity: 0.25,
-            // Siempre esta por encima de las demas
-            zindex: 10
-        });
+            zindex: 5
+        });  
 
-        var planet_true_color = L.tileLayer.wms(wms, {
-            layers: 'probosque:planet_true_color',
+        var incall = L.tileLayer.wms(wms, {
+            layers: 'centrogeo:incall',
             transparent: true,
             format: 'image/png',
-            zindex: 0.5
-        });
+            zindex: 5
+        }); 
 
-        var planet_false_color = L.tileLayer.wms(wms, {
-            layers: 'probosque:planet_false_color',
+        var incall_gi_2300 = L.tileLayer.wms(wms, {
+            layers: 'centrogeo:incall_gi_2300',
             transparent: true,
             format: 'image/png',
-            zindex: 1
-        });
+            zindex: 5
+        }); 
 
-        var planet_nir_color = L.tileLayer.wms(wms, {
-            layers: 'probosque:planet_nir_color',
+        var incall_gi_500 = L.tileLayer.wms(wms, {
+            layers: 'centrogeo:incall_gi_500',
             transparent: true,
             format: 'image/png',
-            zindex: 1
-        });
+            zindex: 5
+        }); 
 
-        var spot_ndvi_2015 = L.tileLayer.wms(wms, {
-            layers: 'probosque:spot_ndvi_2015',
-            transparent: true,
-            format: 'image/png'
-        });
+        toggleLayer('capa1', coloniasCDMXLayer);
+        toggleLayer('capa2', deficit);
+        toggleLayer('capa3', precipitacion);
+        toggleLayer('capa4', ACP);
+        toggleLayer('capa5', rchp);
+        toggleLayer('capa6', incall);
+        toggleLayer('capa7', incall_gi_2300);
+        toggleLayer('capa8', incall_gi_500);
 
-        var planet_ndvi_2022 = L.tileLayer.wms(wms, {
-            layers: 'probosque:planet_ndvi_2022',
-            transparent: true,
-            format: 'image/png'
-        });
-
-        var spot_planet_dndvi = L.tileLayer.wms(wms, {
-            layers: 'probosque:spot_planet_dndvi',
-            transparent: true,
-            format: 'image/png'
-        });
-
-        var spot_planet_dndvi_1sd = L.tileLayer.wms(wms, {
-            layers: 'probosque:spot_planet_dndvi_1sd',
-            transparent: true,
-            format: 'image/png'
-        });
-
-        var spot_planet_dndvi_2sd = L.tileLayer.wms(wms, {
-            layers: 'probosque:spot_planet_dndvi_2sd',
-            transparent: true,
-            format: 'image/png'
-        });
-
-        var spot_planet_dndvi_3sd = L.tileLayer.wms(wms, {
-            layers: 'probosque:spot_planet_dndvi_3sd',
-            transparent: true,
-            format: 'image/png'
-        });
-
-        var entidades = L.tileLayer.wms(wms, {
-            layers: 'probosque:entidades_probosque',
-            transparent: true,
-            format: 'image/png',
-            // Siempre esta por encima de las demas
-            zindex: 10
-        }).addTo(map);
-
-        // Pone al frente la capa de entidades y la sombra
-        entidades.bringToFront();
-        sombra_igecem2.bringToFront();
-
-        // Activacion y desactivacion de capas
-        toggleLayer('capa1', edomex_2022);
-        toggleLayer('capa2', edomex_2015);
-        toggleLayer('capa3', edomex_2015_2022);
-        toggleLayer('capa4', edomex_veg_dominante);
-        toggleLayer('capa5', sombra_igecem2);
-        toggleLayer('capa6', entidades);
-        toggleLayer('capa7', planet_true_color);
-        toggleLayer('capa8', planet_false_color);
-        toggleLayer('capa9', planet_nir_color);
-        toggleLayer('capa10', planet_ndvi_2022);
-        toggleLayer('capa11', spot_ndvi_2015); 
-        toggleLayer('capa12', spot_planet_dndvi);
-        toggleLayer('capa13', spot_planet_dndvi_1sd);
-        toggleLayer('capa14', spot_planet_dndvi_2sd);
-        toggleLayer('capa15', spot_planet_dndvi_3sd);
 
 
         // Control de capas
@@ -401,38 +315,7 @@ window.addEventListener('DOMContentLoaded', function() {
         // Agrega geocoder
         L.Control.geocoder().addTo(map);
 
-        // Función para obtener información de la capa
-        function getFeatureInfo(evt) {
-            var url = wms + '?service=WMS&version=1.1.1&request=GetFeatureInfo&' +
-                'layers=' + edomex_2022.options.layers + '&' +
-                'query_layers=' + edomex_2022.options.layers + '&' +
-                'info_format=text/html&' +
-                'feature_count=50&' +
-                'format=image/png&' +
-                'transparent=true&' +
-                'width=' + map.getSize().x + '&' +
-                'height=' + map.getSize().y + '&' +
-                'srs=' + map.options.crs.code + '&' +
-                'bbox=' + map.getBounds().toBBoxString() + '&' +
-                'x=' + evt.layerPoint.x + '&' +
-                'y=' + evt.layerPoint.y;
 
-            // Realizar una solicitud AJAX para obtener la información de la capa
-            $.ajax({
-                url: url,
-                dataType: 'html',
-                success: function(data) {
-                    // Mostrar el contenido en un pop-up
-                    L.popup()
-                        .setLatLng(evt.latlng)
-                        .setContent(data)
-                        .openOn(map);
-                }
-            });
-        }
-
-        // Evento click en la capa para obtener información
-        edomex_2022.on('click', getFeatureInfo);
 
         // Añadir un control de escala
         L.control.scale().addTo(map);
